@@ -1,22 +1,17 @@
-import React, { useRef, useState } from "react";
-import logo from "./logo.svg";
+import { useRef, useState } from "react";
 import "./App.css";
-import * as THREE from "three";
-import { createRoot } from "react-dom/client";
+// import * as THREE from "three";
 import {
   Canvas,
-  useFrame,
-  ThreeElements,
-  useThree,
-  ThreeEvent,
-  useLoader,
+  // useFrame,
+  // useThree,
+  // ThreeEvent,
+  // useLoader,
 } from "@react-three/fiber";
-import Box from "./Box";
-import Planet from "./Planet";
 import {
-  Hud,
+  // Hud,
   OrbitControls,
-  OrthographicCamera,
+  // OrthographicCamera,
   Environment,
   Stats,
   useGLTF,
@@ -25,74 +20,72 @@ import {
 import img from "./moon.jpg";
 import img2 from "./hot.jpg";
 
-import backgroudImage from "./background.jpg";
-import ViewCube2 from "./ViewCube2";
-import Planet2 from "./Planet2";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import backgroudImage from "./background.jpg";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-function Viewcube({
-  renderPriority = 1,
-  matrix = new THREE.Matrix4(),
-  image = "",
-  onSelectPlanet = () => {},
-}) {
-  const texture = useLoader(THREE.TextureLoader, image);
+// function Viewcube({
+//   renderPriority = 1,
+//   matrix = new THREE.Matrix4(),
+//   image = "",
+//   onSelectPlanet = () => {},
+// }) {
+//   const texture = useLoader(THREE.TextureLoader, image);
 
-  const { scene } = useThree();
+//   const { scene } = useThree();
 
-  const texture2 = useLoader(THREE.TextureLoader, backgroudImage);
+//   const texture2 = useLoader(THREE.TextureLoader, backgroudImage);
 
-  texture2.encoding = THREE.sRGBEncoding;
+//   texture2.encoding = THREE.sRGBEncoding;
 
-  scene.background = texture2;
+//   scene.background = texture2;
 
-  const mesh = useRef<THREE.Mesh>(null!);
-  const { camera } = useThree();
-  const [hovered, hover] = useState<number>(0);
+//   const mesh = useRef<THREE.Mesh>(null!);
+//   const { camera } = useThree();
+//   const [hovered, hover] = useState<number>(0);
 
-  useFrame((state, delta) => {
-    // Spin mesh to the inverse of the default cameras matrix
-    mesh.current.rotation.y += delta;
+//   useFrame((state, delta) => {
+//     // Spin mesh to the inverse of the default cameras matrix
+//     mesh.current.rotation.y += delta;
 
-    matrix.copy(camera.matrix).invert();
-    mesh.current?.quaternion.setFromRotationMatrix(matrix);
-  });
+//     matrix.copy(camera.matrix).invert();
+//     mesh.current?.quaternion.setFromRotationMatrix(matrix);
+//   });
 
-  useFrame((state, delta) => (mesh.current.rotation.y += delta));
+//   useFrame((state, delta) => (mesh.current.rotation.y += delta));
 
-  return (
-    <Hud renderPriority={renderPriority}>
-      <OrthographicCamera makeDefault position={[0, 0, 300]} />
-      <mesh
-        ref={mesh}
-        //position={[size.width / 2 - 120, size.height / 2 - 120, 0]}
-        onPointerOut={(e) => hover(0)}
-        onPointerMove={(e: ThreeEvent<PointerEvent>) =>
-          hover(e.face?.materialIndex || 0)
-        }
-        onClick={onSelectPlanet}
-      >
-        {/* {[...Array(6)].map((_, index) => (
-          <meshLambertMaterial
-            attach={`material-${index}`}
-            key={index}
-            color={hovered === index ? "orange" : "hotpink"}
-          />
-        ))}
-        <boxGeometry args={[80, 80, 80]} /> */}
+//   return (
+//     <Hud renderPriority={renderPriority}>
+//       <OrthographicCamera makeDefault position={[0, 0, 300]} />
+//       <mesh
+//         ref={mesh}
+//         //position={[size.width / 2 - 120, size.height / 2 - 120, 0]}
+//         onPointerOut={(e) => hover(0)}
+//         onPointerMove={(e: ThreeEvent<PointerEvent>) =>
+//           hover(e.face?.materialIndex || 0)
+//         }
+//         onClick={onSelectPlanet}
+//       >
+//         {/* {[...Array(6)].map((_, index) => (
+//           <meshLambertMaterial
+//             attach={`material-${index}`}
+//             key={index}
+//             color={hovered === index ? "orange" : "hotpink"}
+//           />
+//         ))}
+//         <boxGeometry args={[80, 80, 80]} /> */}
 
-        <sphereGeometry args={[300, 32]} />
-        <meshBasicMaterial
-          attach="material"
-          map={texture}
-          polygonOffsetUnits={500}
-        />
-      </mesh>
-      {/* <ambientLight intensity={1} /> */}
-      {/* <pointLight position={[200, 200, 100]} intensity={0.5} /> */}
-    </Hud>
-  );
-}
+//         <sphereGeometry args={[300, 32]} />
+//         <meshBasicMaterial
+//           attach="material"
+//           map={texture}
+//           polygonOffsetUnits={500}
+//         />
+//       </mesh>
+//       {/* <ambientLight intensity={1} /> */}
+//       {/* <pointLight position={[200, 200, 100]} intensity={0.5} /> */}
+//     </Hud>
+//   );
+// }
 
 function Model() {
   const gltf = useGLTF("./planet2.glb"); // Substitua '/path/to/your/model.glb' pelo caminho para o seu arquivo GLB
@@ -102,13 +95,13 @@ function Model() {
 }
 
 function App() {
-  const [selectedImage, setSelectedImage] = useState(img);
+  const [, setSelectedImage] = useState(img);
 
-  const [isSelectedPlanet, setIsSelectedPlanet] = useState(false);
+  const [isSelectedPlanet] = useState(false);
 
-  const onSelectPlanet = () => {
-    setIsSelectedPlanet(true);
-  };
+  // const onSelectPlanet = () => {
+  //   setIsSelectedPlanet(true);
+  // };
 
   return (
     <div
