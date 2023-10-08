@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+
+.fixed-button {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.fixed-button-prev {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.fixed-title {
+  position: fixed;
+  top: 0%;
+  left: width/2;
+  z-index: 1;
+  color: white;
+  margin: 20px;
+  font-size: 30px;
+}
