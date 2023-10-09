@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/exoplanets-web/static/css/main.96d46cce.css",
-    "main.js": "/exoplanets-web/static/js/main.b169da8d.js",
+    "main.js": "/exoplanets-web/static/js/main.32967526.js",
     "static/js/787.2c65ba89.chunk.js": "/exoplanets-web/static/js/787.2c65ba89.chunk.js",
     "static/media/planeta3.png": "/exoplanets-web/static/media/planeta3.0f91a59ae60fabae2f85.png",
     "static/media/planeta.png": "/exoplanets-web/static/media/planeta.621fd58cd3fc842ac982.png",
@@ -9,11 +9,11 @@
     "static/media/background.jpg": "/exoplanets-web/static/media/background.09fecfb664aafb77e679.jpg",
     "index.html": "/exoplanets-web/index.html",
     "main.96d46cce.css.map": "/exoplanets-web/static/css/main.96d46cce.css.map",
-    "main.b169da8d.js.map": "/exoplanets-web/static/js/main.b169da8d.js.map",
+    "main.32967526.js.map": "/exoplanets-web/static/js/main.32967526.js.map",
     "787.2c65ba89.chunk.js.map": "/exoplanets-web/static/js/787.2c65ba89.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.96d46cce.css",
-    "static/js/main.b169da8d.js"
+    "static/js/main.32967526.js"
   ]
 }
