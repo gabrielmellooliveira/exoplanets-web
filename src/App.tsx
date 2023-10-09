@@ -1,107 +1,123 @@
 import { useRef, useState } from "react";
 import "./App.css";
-// import * as THREE from "three";
+import * as THREE from "three";
 import {
   Canvas,
-  // useFrame,
-  // useThree,
-  // ThreeEvent,
-  // useLoader,
+  useFrame,
+  useThree,
+  ThreeEvent,
+  useLoader,
 } from "@react-three/fiber";
 import {
-  // Hud,
+  Hud,
   OrbitControls,
-  // OrthographicCamera,
+  OrthographicCamera,
   Environment,
   Stats,
   useGLTF,
 } from "@react-three/drei";
 
-import img from "./moon.jpg";
-import img2 from "./hot.jpg";
+import planet1 from "./planeta.png";
+import planet2 from "./planeta3.png";
+import planet3 from "./planeta4.png";
 
-// import backgroudImage from "./background.jpg";
-// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import backgroudImage from "./background.jpg";
+import ViewCube2 from "./ViewCube2";
 
-// function Viewcube({
-//   renderPriority = 1,
-//   matrix = new THREE.Matrix4(),
-//   image = "",
-//   onSelectPlanet = () => {},
-// }) {
-//   const texture = useLoader(THREE.TextureLoader, image);
+function Viewcube({
+  renderPriority = 1,
+  matrix = new THREE.Matrix4(),
+  image = "",
+  onSelectPlanet = () => {},
+}) {
+  const texture = useLoader(THREE.TextureLoader, image);
 
-//   const { scene } = useThree();
+  const { scene } = useThree();
 
-//   const texture2 = useLoader(THREE.TextureLoader, backgroudImage);
+  const texture2 = useLoader(THREE.TextureLoader, backgroudImage);
 
-//   texture2.encoding = THREE.sRGBEncoding;
+  texture2.encoding = THREE.sRGBEncoding;
 
-//   scene.background = texture2;
+  scene.background = texture2;
 
-//   const mesh = useRef<THREE.Mesh>(null!);
-//   const { camera } = useThree();
-//   const [hovered, hover] = useState<number>(0);
+  const mesh = useRef<THREE.Mesh>(null!);
+  const { camera } = useThree();
 
-//   useFrame((state, delta) => {
-//     // Spin mesh to the inverse of the default cameras matrix
-//     mesh.current.rotation.y += delta;
+  useFrame((state, delta) => {
+    matrix.copy(camera.matrix).invert();
+    mesh.current?.quaternion.setFromRotationMatrix(matrix);
+  });
 
-//     matrix.copy(camera.matrix).invert();
-//     mesh.current?.quaternion.setFromRotationMatrix(matrix);
-//   });
+  useFrame((state, delta) => (mesh.current.rotation.y += delta));
 
-//   useFrame((state, delta) => (mesh.current.rotation.y += delta));
-
-//   return (
-//     <Hud renderPriority={renderPriority}>
-//       <OrthographicCamera makeDefault position={[0, 0, 300]} />
-//       <mesh
-//         ref={mesh}
-//         //position={[size.width / 2 - 120, size.height / 2 - 120, 0]}
-//         onPointerOut={(e) => hover(0)}
-//         onPointerMove={(e: ThreeEvent<PointerEvent>) =>
-//           hover(e.face?.materialIndex || 0)
-//         }
-//         onClick={onSelectPlanet}
-//       >
-//         {/* {[...Array(6)].map((_, index) => (
-//           <meshLambertMaterial
-//             attach={`material-${index}`}
-//             key={index}
-//             color={hovered === index ? "orange" : "hotpink"}
-//           />
-//         ))}
-//         <boxGeometry args={[80, 80, 80]} /> */}
-
-//         <sphereGeometry args={[300, 32]} />
-//         <meshBasicMaterial
-//           attach="material"
-//           map={texture}
-//           polygonOffsetUnits={500}
-//         />
-//       </mesh>
-//       {/* <ambientLight intensity={1} /> */}
-//       {/* <pointLight position={[200, 200, 100]} intensity={0.5} /> */}
-//     </Hud>
-//   );
-// }
-
-function Model() {
-  const gltf = useGLTF("./planet2.glb"); // Substitua '/path/to/your/model.glb' pelo caminho para o seu arquivo GLB
-  const modelRef = useRef();
-
-  return <primitive ref={modelRef} object={gltf.scene} />;
+  return (
+    <Hud renderPriority={renderPriority}>
+      <OrthographicCamera makeDefault position={[0, 0, 300]} />
+      <mesh ref={mesh} onClick={onSelectPlanet}>
+        <sphereGeometry args={[250, 32]} />
+        <meshBasicMaterial
+          attach="material"
+          map={texture}
+          polygonOffsetUnits={500}
+        />
+      </mesh>
+      {/* <ambientLight intensity={1} /> */}
+      {/* <pointLight position={[200, 200, 100]} intensity={0.5} /> */}
+    </Hud>
+  );
 }
 
+const planets = [
+  {
+    path: planet2,
+    name: "Veridiana",
+    description:
+      "Veridiana é um exoplaneta fictício situado em um sistema estelar distante, a aproximadamente 40 anos-luz da Terra, na constelação de Aurora. Descoberto por telescópios avançados em uma missão interestelar de exploração, Veridiana é notável por ser um dos raros exoplanetas situados na zona habitável de sua estrela-mãe, uma gigante amarela conhecida como 'Aurora Prime'. Veridiana tem características geofísicas e climáticas únicas. Sua superfície é composta principalmente por vastas extensões de oceanos límpidos, com ilhas e arquipélagos dispersos, onde a vida marinha floresce em uma profusão de cores e formas. O planeta também possui um sistema complexo de ventos que cria correntes aéreas constantes, tornando possível a existência de enormes criaturas voadoras e aves exóticas.",
+  },
+  {
+    path: planet1,
+    name: "Seraphis-IV",
+    description:
+      "Seraphis-IV é um exoplaneta fascinante situado a aproximadamente 50 anos-luz da Terra, na constelação de Lyra. Descoberto recentemente por astrônomos usando tecnologias avançadas de telescópios espaciais, Seraphis-IV captura a imaginação dos cientistas e entusiastas do espaço devido às suas características únicas e potencial para abrigar vida. Este exoplaneta orbita uma estrela similar ao Sol, conhecida como Seraphis, com uma órbita que o coloca na chamada 'zona habitável'. Seraphis-IV é aproximadamente 1,5 vezes o tamanho da Terra e tem uma atmosfera densa e rica em oxigênio, criando um efeito estufa natural que regula as temperaturas em sua superfície.",
+  },
+  {
+    path: planet3,
+    name: "Aeloria",
+    description:
+      "Aeloria é um exoplaneta hipotético que orbita uma estrela similar ao Sol na constelação de Nova Lysia, localizada a aproximadamente 150 anos-luz da Terra. Este planeta fascinante possui uma rica diversidade de ecossistemas e características únicas que o tornam um candidato ideal para a habitabilidade. A atmosfera de Aeloria é composta principalmente de oxigênio e nitrogênio, proporcionando condições respiráveis para formas de vida semelhantes às terrestres. A presença de mares e oceanos cobrindo cerca de 70% da superfície de Aeloria contribui para a regulação do clima, criando uma variedade de paisagens costeiras e ilhas tropicais.",
+  },
+];
+
 function App() {
-  const [, setSelectedImage] = useState(img);
+  const [selectedPlanet, setSelectedPlanet] = useState(0);
 
-  const [isSelectedPlanet] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(planet2);
 
-  // const onSelectPlanet = () => {
-  //   setIsSelectedPlanet(true);
-  // };
+  const [isSelectedPlanet, setIsSelectedPlanet] = useState(false);
+
+  const onSelectPlanet = () => {
+    setIsSelectedPlanet(true);
+  };
+
+  const onSelectNextPlanet = () => {
+    if (selectedPlanet === 2) {
+      setSelectedPlanet(0);
+      setSelectedImage(planets[0].path);
+    } else {
+      setSelectedPlanet((prev) => prev + 1);
+      setSelectedImage(planets[selectedPlanet + 1].path);
+    }
+  };
+
+  const onSelectPrevPlanet = () => {
+    if (selectedPlanet === 0) {
+      setSelectedPlanet(2);
+      setSelectedImage(planets[2].path);
+    } else {
+      setSelectedPlanet((prev) => prev - 1);
+      setSelectedImage(planets[selectedPlanet - 1].path);
+    }
+  };
 
   return (
     <div
@@ -115,14 +131,11 @@ function App() {
     >
       {!isSelectedPlanet && (
         <>
-          <div className="fixed-title">Exoplaneta</div>
-          <div
-            className="fixed-button-prev"
-            onClick={() => setSelectedImage(img)}
-          >
+          <div className="fixed-title">{planets[selectedPlanet].name}</div>
+          <div className="fixed-button-prev" onClick={onSelectPrevPlanet}>
             Anterior
           </div>
-          <div className="fixed-button" onClick={() => setSelectedImage(img2)}>
+          <div className="fixed-button" onClick={onSelectNextPlanet}>
             Próximo
           </div>
         </>
@@ -130,15 +143,17 @@ function App() {
 
       {isSelectedPlanet && (
         <>
-          <div className="fixed-title">Exoplaneta</div>
+          <div className="fixed-title-details">
+            {planets[selectedPlanet].name}
+          </div>
+          <div className="fixed-text-details">
+            {planets[selectedPlanet].description}
+          </div>
           <div
-            className="fixed-button-prev"
-            onClick={() => setSelectedImage(img)}
+            className="fixed-button-back"
+            onClick={() => setIsSelectedPlanet(false)}
           >
             Voltar
-          </div>
-          <div className="fixed-button" onClick={() => setSelectedImage(img2)}>
-            Próximo
           </div>
         </>
       )}
@@ -152,25 +167,13 @@ function App() {
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} />
 
-        {/* <Model position={[0, 0, 0]} />
-
-        <Planet2
-          position={[20, 0, -40]}
-          image={selectedImage}
-          modelPath="./planet.glft"
-        /> */}
-
-        <Model />
-
-        {/* {!isSelectedPlanet && (
+        {!isSelectedPlanet && (
           <Viewcube onSelectPlanet={onSelectPlanet} image={selectedImage} />
         )}
 
-        {isSelectedPlanet && <ViewCube2 image={selectedImage} />} */}
-        {/* <Planet position={[1, 0, 0]} /> */}
+        {isSelectedPlanet && <ViewCube2 image={selectedImage} />}
 
         <OrbitControls enableZoom={true} />
-        <Stats />
         <Environment preset="city" />
       </Canvas>
     </div>

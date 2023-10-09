@@ -39,7 +39,7 @@
 
 .fixed-button {
   position: fixed;
-  top: 50%;
+  top: 92%;
   right: 20px;
   transform: translateY(-50%);
   padding: 10px 20px;
@@ -53,8 +53,22 @@
 
 .fixed-button-prev {
   position: fixed;
-  top: 50%;
+  top: 92%;
   left: 20px;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.fixed-button-back {
+  position: fixed;
+  top: 92%;
+  right: 20px;
   transform: translateY(-50%);
   padding: 10px 20px;
   background-color: #007bff;
@@ -73,4 +87,25 @@
   color: white;
   margin: 20px;
   font-size: 30px;
+}
+
+.fixed-title-details {
+  position: fixed;
+  top: 0%;
+  right: 10px;
+  z-index: 1;
+  color: white;
+  margin: 20px;
+  font-size: 30px;
+}
+
+.fixed-text-details {
+  position: fixed;
+  top: 12%;
+  right: 10px;
+  z-index: 1;
+  color: white;
+  margin: 20px;
+  font-size: 18px;
+  width: 400px;
 }
